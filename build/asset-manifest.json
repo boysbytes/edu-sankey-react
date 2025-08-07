@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/edu-sankey-react/static/css/main.4a359f8c.css",
+    "main.js": "/edu-sankey-react/static/js/main.f5b2b5cc.js",
+    "static/js/453.d1f4b89f.chunk.js": "/edu-sankey-react/static/js/453.d1f4b89f.chunk.js",
+    "index.html": "/edu-sankey-react/index.html",
+    "main.4a359f8c.css.map": "/edu-sankey-react/static/css/main.4a359f8c.css.map",
+    "main.f5b2b5cc.js.map": "/edu-sankey-react/static/js/main.f5b2b5cc.js.map",
+    "453.d1f4b89f.chunk.js.map": "/edu-sankey-react/static/js/453.d1f4b89f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4a359f8c.css",
+    "static/js/main.f5b2b5cc.js"
+  ]
+}
