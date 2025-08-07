@@ -2,14 +2,22 @@ import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react
 import * as d3 from 'd3';
 import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
 
-const SankeyDiagram = forwardRef(({ data, colorScheme, fontSize, nodePadding, diagramWidth, diagramHeight, enableGradient, autoSort }, ref) => {
+const SankeyDiagram = forwardRef(({ data, headers, filters, colorScheme, fontSize, nodePadding, diagramWidth, diagramHeight, enableGradient, autoSort }, ref) => {
   const svgRef = useRef();
 
   useEffect(() => {
     if (data) {
       drawSankey();
     }
-  }, [data, colorScheme, fontSize, nodePadding, diagramWidth, diagramHeight, enableGradient, autoSort]);
+  }, [data, headers, filters, colorScheme, fontSize, nodePadding, diagramWidth, diagramHeight, enableGradient, autoSort]);
+
+  const isRowFiltered = (row) => {
+    if (!filters) return true;
+    return headers.every((header, index) => {
+      const filterValue = filters[header];
+      return filterValue === 'All' || filterValue === row[index];
+    });
+  };
 
   const drawSankey = () => {
     const { nodes, links } = transformData(data);
@@ -68,12 +76,16 @@ const SankeyDiagram = forwardRef(({ data, colorScheme, fontSize, nodePadding, di
 
     svg.append("g")
       .attr("fill", "none")
-      .attr("stroke-opacity", 0.5)
       .selectAll("g")
       .data(graphLinks)
       .join("path")
         .attr("d", sankeyLinkHorizontal())
-        .attr("stroke", (d, i) => enableGradient ? `url(#gradient-${i})` : color(d.source.name))
+        .attr("stroke", (d, i) => {
+          const isFiltered = isRowFiltered(d.originalRow);
+          if (!isFiltered) return '#ddd'; // Grey color for filtered out links
+          return enableGradient ? `url(#gradient-${i})` : color(d.source.name);
+        })
+        .attr("stroke-opacity", d => isRowFiltered(d.originalRow) ? 0.5 : 0.2)
         .attr("stroke-width", d => Math.max(1, d.width));
 
     svg.append("g")
@@ -112,7 +124,8 @@ const SankeyDiagram = forwardRef(({ data, colorScheme, fontSize, nodePadding, di
           links.push({
             source: nodes.findIndex(n => n.name === source),
             target: nodes.findIndex(n => n.name === target),
-            value: value
+            value: value,
+            originalRow: row
           });
         }
       }

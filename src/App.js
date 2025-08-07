@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import Papa from 'papaparse';
 import SankeyDiagram from './SankeyDiagram';
@@ -22,30 +22,67 @@ const colorSchemes = {
 };
 
 function App() {
-  const [csvData, setCsvData] = useState(null);
-  const [colorScheme, setColorScheme] = useState("Category10");
-  const [fontSize, setFontSize] = useState(10); // New state for font size
-  const [nodePadding, setNodePadding] = useState(10); // New state for node padding
-  const [diagramWidth, setDiagramWidth] = useState(900); // New state for diagram width
-  const [diagramHeight, setDiagramHeight] = useState(600); // New state for diagram height
-  const [enableGradient, setEnableGradient] = useState(true); // New state for gradient toggle
-  const [autoSort, setAutoSort] = useState(false); // New state for auto-sort toggle
+  const [csvData, setCsvData] = useState([]);
+  const [csvHeaders, setCsvHeaders] = useState([]);
+  const [columnFilters, setColumnFilters] = useState({});
+  const [uniqueColumnValues, setUniqueColumnValues] = useState({});
 
-  const sankeyRef = useRef(); // Ref to access SankeyDiagram component methods
+  const [colorScheme, setColorScheme] = useState("Category10");
+  const [fontSize, setFontSize] = useState(10);
+  const [nodePadding, setNodePadding] = useState(10);
+  const [diagramWidth, setDiagramWidth] = useState(900);
+  const [diagramHeight, setDiagramHeight] = useState(600);
+  const [enableGradient, setEnableGradient] = useState(true);
+  const [autoSort, setAutoSort] = useState(false);
+
+  const sankeyRef = useRef();
+
+  const handleCsvData = (data) => {
+    const headers = data[0];
+    const body = data.slice(1);
+
+    setCsvHeaders(headers);
+    setCsvData(body);
+
+    const uniqueValues = {};
+    headers.forEach((header, index) => {
+      const values = new Set(body.map(row => row[index]));
+      uniqueValues[header] = ['All', ...Array.from(values)];
+    });
+    setUniqueColumnValues(uniqueValues);
+
+    // Reset filters
+    const initialFilters = {};
+    headers.forEach(header => {
+      initialFilters[header] = 'All';
+    });
+    setColumnFilters(initialFilters);
+  };
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     Papa.parse(file, {
       complete: (result) => {
-        setCsvData(result.data);
+        handleCsvData(result.data);
       }
     });
   };
 
   const handlePaste = (e) => {
     const text = e.target.value;
-    const result = Papa.parse(text, { header: false });
-    setCsvData(result.data);
+    if (text) {
+      const result = Papa.parse(text, { header: false });
+      handleCsvData(result.data);
+    } else {
+      setCsvData([]);
+      setCsvHeaders([]);
+      setUniqueColumnValues({});
+      setColumnFilters({});
+    }
+  };
+
+  const handleFilterChange = (header, value) => {
+    setColumnFilters(prev => ({ ...prev, [header]: value }));
   };
 
   const downloadPNG = () => {
@@ -133,15 +170,33 @@ function App() {
                 onChange={(e) => setAutoSort(e.target.checked)}
               />
             </div>
-            <button onClick={downloadPNG} disabled={!csvData}>Download PNG</button>
+            <button onClick={downloadPNG} disabled={!csvData.length}>Download PNG</button>
           </div>
+
+          {csvHeaders.length > 0 && (
+            <div className="filters-container">
+              <h3>Filters</h3>
+              {csvHeaders.map(header => (
+                <div key={header} className="filter-group">
+                  <label>{header}:</label>
+                  <select onChange={(e) => handleFilterChange(header, e.target.value)} value={columnFilters[header]}>
+                    {uniqueColumnValues[header]?.map(value => (
+                      <option key={value} value={value}>{value}</option>
+                    ))}
+                  </select>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {csvData && (
+        {csvData.length > 0 && (
           <div className="sankey-diagram-container">
             <SankeyDiagram
               ref={sankeyRef}
               data={csvData}
+              headers={csvHeaders}
+              filters={columnFilters}
               colorScheme={colorSchemes[colorScheme]}
               fontSize={fontSize}
               nodePadding={nodePadding}
