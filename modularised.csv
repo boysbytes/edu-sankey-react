@@ -1,0 +1,25 @@
+Experience,Level,Course,Track
+Explorers x AI,L1,Blocks 1: Play and Code,Coder
+Explorers x AI,L1,Blocks 2: Mobile Coding,Coder
+Explorers x AI,L1,Electronics 1: Circuits and STEM,Maker
+Explorers x AI,L1,Electronics 2: Machines and Robots,Maker
+Explorers x AI,L1,Storytelling 1: Digital Animation,Designer
+Builders x AI,L1,3D Design 1: Build with TinkerCad,Designer
+Builders x AI,L2,Storytelling 2: Creative Computing,Designer
+Builders x AI,L2,Game Dev 1: Mini Games Creation,Designer
+Builders x AI,L2,Arduino 1: Physical Computing,Maker
+Builders x AI,L2,Arduino 2: Human Computer Interaction,Maker
+Builders x AI,L2,Python 1: Computational Thinking,Coder
+Builders x AI,L2,Python 2: Problem Solving and Algorithm,Coder
+Builders x AI,L3,3D Design 2: Modelling with SketchUp,Designer
+Builders x AI,L3,Game Dev 2: Designing for XR,Designer
+Architects x AI,L3,Arduino 3: Machine Learning with Sensors,Maker
+Architects x AI,L3,Arduino 4: Programming with C,Maker
+Architects x AI,L3,App Dev 1: UI Design & Mobile Games,Coder
+Architects x AI,L3,App Dev 2: APIs and Database Integration,Coder
+Architects x AI,L4,AI and Data Science 1: Data and Regression,Coder
+Architects x AI,L4,AI and Data Science 2: Predictive & Generative AI,Coder
+Architects x AI,L4,IoT Systems 1: Smart Devices with ESP32,Maker
+Architects x AI,L4,IoT Systems 2: Edge Computing with AI,Maker
+Architects x AI,L4,3D Design 3: Animate with Blender,Designer
+Architects x AI,L4,Game Dev 3: Level Up with Godot,Designer

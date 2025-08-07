@@ -29,6 +29,7 @@ function App() {
   const [diagramWidth, setDiagramWidth] = useState(900); // New state for diagram width
   const [diagramHeight, setDiagramHeight] = useState(600); // New state for diagram height
   const [enableGradient, setEnableGradient] = useState(true); // New state for gradient toggle
+  const [autoSort, setAutoSort] = useState(false); // New state for auto-sort toggle
 
   const sankeyRef = useRef(); // Ref to access SankeyDiagram component methods
 
@@ -124,6 +125,14 @@ function App() {
                 onChange={(e) => setEnableGradient(e.target.checked)}
               />
             </div>
+            <div className="setting-group">
+              <label>Auto Sort Nodes:</label>
+              <input
+                type="checkbox"
+                checked={autoSort}
+                onChange={(e) => setAutoSort(e.target.checked)}
+              />
+            </div>
             <button onClick={downloadPNG} disabled={!csvData}>Download PNG</button>
           </div>
         </div>
@@ -139,6 +148,7 @@ function App() {
               diagramWidth={diagramWidth}
               diagramHeight={diagramHeight}
               enableGradient={enableGradient}
+              autoSort={autoSort}
             />
           </div>
         )}

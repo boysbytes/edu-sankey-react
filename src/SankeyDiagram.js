@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useImperativeHandle, forwardRef } from 'react
 import * as d3 from 'd3';
 import { sankey, sankeyLinkHorizontal } from 'd3-sankey';
 
-const SankeyDiagram = forwardRef(({ data, colorScheme, fontSize, nodePadding, diagramWidth, diagramHeight, enableGradient }, ref) => {
+const SankeyDiagram = forwardRef(({ data, colorScheme, fontSize, nodePadding, diagramWidth, diagramHeight, enableGradient, autoSort }, ref) => {
   const svgRef = useRef();
 
   useEffect(() => {
     if (data) {
       drawSankey();
     }
-  }, [data, colorScheme, fontSize, nodePadding, diagramWidth, diagramHeight, enableGradient]);
+  }, [data, colorScheme, fontSize, nodePadding, diagramWidth, diagramHeight, enableGradient, autoSort]);
 
   const drawSankey = () => {
     const { nodes, links } = transformData(data);
@@ -28,6 +28,10 @@ const SankeyDiagram = forwardRef(({ data, colorScheme, fontSize, nodePadding, di
       .nodeWidth(15)
       .nodePadding(nodePadding)
       .extent([[1, 1], [width - 1, height - 6]]);
+
+    if (!autoSort) {
+      sankeyGenerator.nodeSort(null);
+    }
 
     const { nodes: graphNodes, links: graphLinks } = sankeyGenerator({
       nodes: nodes.map(d => Object.assign({}, d)),
