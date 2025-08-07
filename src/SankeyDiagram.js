@@ -161,6 +161,9 @@ const SankeyDiagram = forwardRef(({ data, headers, filters, colorScheme, fontSiz
       };
 
       img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString)));
+    },
+    getChartData: () => {
+      return transformData(data);
     }
   }));
 

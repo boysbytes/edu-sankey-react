@@ -1,127 +1,199 @@
+/* General App Styling */
 .App {
-  text-align: center;
-  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+header {
+  background-color: #fff;
+  padding: 10px 30px;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  z-index: 10;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #1a1a1a;
 }
 
 .main-content-container {
   display: flex;
-  flex-direction: column; /* Arrange children vertically */
-  align-items: center; /* Center items horizontally */
-  gap: 20px; /* Space between the top section and the diagram */
-  margin-top: 20px;
+  flex: 1;
+  overflow: hidden; /* Prevent scrolling at this level */
 }
 
-.input-settings-group {
-  display: flex;
-  flex-direction: row; /* Arrange CSV input and settings side-by-side */
-  gap: 20px;
-  align-items: flex-start; /* Align items to the top */
-  flex-wrap: wrap; /* Allow wrapping on smaller screens */
-  justify-content: center; /* Center the input and settings group */
-}
-
-.csv-input-container {
+/* Sidebar for controls */
+.sidebar {
+  width: 350px;
+  background-color: #fff;
   padding: 20px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: 450px; /* Fixed width for input container */
-  box-sizing: border-box;
+  overflow-y: auto; /* Allow scrolling within the sidebar */
+  border-right: 1px solid #ddd;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
 }
 
-.csv-input-container h3 {
-  margin-top: 0;
+.sidebar h3 {
+  font-size: 1.2rem;
   color: #333;
+  margin-top: 20px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #4CAF50;
+  padding-bottom: 5px;
 }
 
-.input-section {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
+.sidebar h3:first-child {
+  margin-top: 0;
 }
 
-.input-section h4 {
-  margin: 0 0 5px 0;
-  color: #555;
+/* Data Input Section */
+.csv-input-container {
+  margin-bottom: 20px;
+}
+
+.file-drop-area {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.file-drop-area.drag-over {
+  background-color: #e8f0fe;
+  border-color: #4285f4;
+}
+
+.file-drop-area p {
+  margin: 0;
+  color: #666;
+}
+
+.file-drop-area input[type="file"] {
+  display: none;
 }
 
 textarea {
-  width: 100%; /* Fill container width */
-  height: 200px;
-  padding: 8px;
+  width: 100%;
+  min-height: 150px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box;
+  font-family: monospace;
+  margin-top: 15px;
 }
 
-.settings-container {
-  padding: 20px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  width: fit-content;
-  align-items: flex-start; /* Align items to the left within settings */
-}
-
-.settings-container h3 {
-  margin-top: 0;
-  color: #333;
-}
-
+/* Settings & Filters */
 .setting-group {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  margin-bottom: 12px;
 }
 
 .setting-group label {
-  font-weight: bold;
-  width: 120px; /* Align labels */
-  text-align: right;
+  font-weight: 500;
+  white-space: nowrap;
+  margin-right: 15px;
 }
 
 .setting-group input[type="number"],
 .setting-group select {
-  padding: 6px 10px;
+  padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 100px;
+  width: 80px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.setting-group input[type="number"]:focus,
+.setting-group select:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+  outline: none;
+}
+
+.setting-group input[type="checkbox"] {
+  height: 18px;
+  width: 18px;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 button {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50;
   color: white;
-  padding: 10px 20px;
+  padding: 12px 18px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-  align-self: center; /* Center the button within its container */
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s, transform 0.2s;
+  flex-grow: 1;
 }
 
 button:hover {
   background-color: #45a049;
+  transform: translateY(-1px);
 }
 
 button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+  transform: none;
 }
 
-/* Styling for the Sankey Diagram container */
+/* Main content area for the diagram */
+.content-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  overflow: auto; /* Allows scrolling for large diagrams */
+}
+
 .sankey-diagram-container {
-  margin-top: 0; /* Removed extra margin as gap handles it */
-  border: 1px solid #eee;
-  border-radius: 8px;
   background-color: #fff;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  width: fit-content; /* Allow it to shrink to content or be controlled by diagramWidth */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  /* The width and height are now controlled by the SVG itself */
+}
+
+/* Filter specific styles */
+.filters-container {
+  margin-top: 20px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.filter-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
