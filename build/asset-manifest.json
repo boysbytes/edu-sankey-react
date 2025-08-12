@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/edu-sankey-react/static/css/main.4a359f8c.css",
-    "main.js": "/edu-sankey-react/static/js/main.94b91ad0.js",
+    "main.css": "/edu-sankey-react/static/css/main.41ae55da.css",
+    "main.js": "/edu-sankey-react/static/js/main.b2485c4d.js",
     "static/js/453.d1f4b89f.chunk.js": "/edu-sankey-react/static/js/453.d1f4b89f.chunk.js",
     "index.html": "/edu-sankey-react/index.html",
-    "main.4a359f8c.css.map": "/edu-sankey-react/static/css/main.4a359f8c.css.map",
-    "main.94b91ad0.js.map": "/edu-sankey-react/static/js/main.94b91ad0.js.map",
+    "main.41ae55da.css.map": "/edu-sankey-react/static/css/main.41ae55da.css.map",
+    "main.b2485c4d.js.map": "/edu-sankey-react/static/js/main.b2485c4d.js.map",
     "453.d1f4b89f.chunk.js.map": "/edu-sankey-react/static/js/453.d1f4b89f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4a359f8c.css",
-    "static/js/main.94b91ad0.js"
+    "static/css/main.41ae55da.css",
+    "static/js/main.b2485c4d.js"
   ]
 }
